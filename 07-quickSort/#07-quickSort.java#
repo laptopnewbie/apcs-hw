@@ -1,0 +1,18 @@
+public class 07-quick
+public int[] QuickSort(int[] L, int high, int low){
+    if (L.length <= 1){
+	return L;
+    }else{
+	int pivot = L[L.length/2];
+	ArrayList left = new ArrayList(L.length);
+	ArrayList right = new ArrayList(L.length);
+	for (int a = 0; a < L.length; a++){
+	    if (L[a] < pivot){
+		left.add(L[a]);
+	    }else if (L[a] > pivot){
+		right.add(L[a]);
+	    }
+
+	    
+
+	}
