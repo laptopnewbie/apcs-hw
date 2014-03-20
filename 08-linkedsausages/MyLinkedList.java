@@ -1,23 +1,41 @@
-//were we supposed to use the try/catch?
+//were we supposed to use the try/catch? Ans: Nope
+//constructor = new Node("Empty"); -> remove index shift 1
+
 public class MyLinkedList{
     
     private Node head;
-    private int length;
+    private int size;
     
     public MyLinkedList(){
 	head = null;
-	length = 0;
+	size = 0;
     }
 
-    public int length(){
-	return length;
+    public int size(){
+	return size;
     }
+    //Method 1 - make loop with toString() to calculate length then return it
+    //O(n)
+
+    //Method 2 - make length instance variable, maintain add/remove routines to modify length
+    //O(amortizated) aka situational
+    //linear work but bits of work spread out
+
+    /*
+      AMORTIZATION
+      ex1. walking - free
+           citi bike - $10 a day, $100 a year - actual cost per use depends on number of uses
+           subway - $5 a day
+      
+      ex2. kitchen aid - $309 last 25 years
+      
+     */
     
     public void add(String s){
 	Node temp = new Node(s);
         temp.setNext(head);
 	head = temp;
-	length++;
+	size++;
     }
 
     public String toString(){
@@ -28,7 +46,6 @@ public class MyLinkedList{
 	while(temp!=null){
 	    s += temp +" ";	  
 	    temp = temp.getNext();
-	  
 	}
 	return s;
     }
@@ -39,13 +56,13 @@ public class MyLinkedList{
 	    temp=temp.getNext();
 	    if (a==i-1){
 		temp.setNext(new Node(s));
-		length++;
+		size++;
 	    }
 	}
     }
 		
     public String get(int i){
-	if (length<i){
+	if (size<i){
 	    return "Index out of range";
 	}
 	Node temp = head;
@@ -59,7 +76,7 @@ public class MyLinkedList{
     }
 
     public String set(String s, int i){
-	if (length<i){
+	if (size<i){
 	    return "Index out of range";
 	}
 	Node temp = head;
@@ -74,8 +91,9 @@ public class MyLinkedList{
 	return "If end";
     }
 
-    public String remove(int i){
-	if (length<i){
+    /*REMOVE OL' MINE
+      public String remove(int i){
+	if (size<i){
 	    return "Index out of range";
 	}
 	Node holder = head;
@@ -86,15 +104,30 @@ public class MyLinkedList{
 		holder = temp;
 		for (int b=i;b<length;b++){
 		    temp.setNext(temp.getNext());
-		    length--;
+		    size--;
 		}
 	    }
 	}
 	return holder.getData();
+	}*/
+
+    // with empty first head
+    public String remove(int n){
+	int i = 0;
+	Node temp = head.getNext();
+	Node temp2 = head; //piggyback pointer that follows temp
+	while (i<n){
+	    temp2 = temp; //temp2 one before event point
+	    temp = temp.getNext(); //temp eventually becomes event point
+	    i++;
+	}
+	temp2.setNext(temp.getNext());//or temp2.setNext(temp2.getNext().getNext());
     }
+    //***piggybacking pointersLOL! - trail pointer by other pointer
+
  
     public String find(int i){
-	if (length<i){
+	if (size<i){
 	    return "Index out of range";
 	}
 	Node holder = head;
@@ -121,3 +154,5 @@ public class MyLinkedList{
 
 
 
+// cake pops in ice in der summah
+// CIRCWULAR LINKED WIST?!
