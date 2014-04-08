@@ -4,13 +4,13 @@ public class MyStack{
     
     public MyStack(){
 	stack = new String[10];
-	height = 0;
+	height = -1;
     }
 
     public void push(String s){
-	if (numStacks < stack.length){
-	    index++;
-	    stack[index] = s;
+	if (height < stack.length){
+	    height++;
+	    stack[height] = s;
 	}else{
 	    stack = Arrays.copyOf(stack,stack.length*2);
 	    push(s);
